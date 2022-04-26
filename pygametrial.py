@@ -1,25 +1,26 @@
 import pygame
-
+import random
 class Game:
 
     _window_width, _window_height = 1550, 900
     _window_size = (_window_width, _window_height)
-    _black = (255, 120, 0)
+    _black = (0, 0, 0)
     _screen = pygame.display.set_mode(_window_size)
 
     def __init__(self):
 
-        self._inter_move_wait_time = 20
+        self._inter_move_wait_time = random.sample(range(10,40),3)
+        self._inter_move_wait_time=sorted(self._inter_move_wait_time)
         self._clock = pygame.time.Clock()
         self._ball = Ball()
 
     def _speed_down(self):
-
-        self._inter_move_wait_time = self._inter_move_wait_time + 1
+        for i in (1,4):
+            self._inter_move_wait_time[i] += (self._inter_move_wait_time[3]/self._inter_move_wait_time[i]) 
 
     def _speed_up(self):
-
-        self._inter_move_wait_time = self._inter_move_wait_time - 1
+        for i in (1,4):
+            self._inter_move_wait_time[i] -= self._inter_move_wait_time[i]/self._inter_move_wait_time[1]
 
     def play(self):
 
@@ -81,3 +82,4 @@ game = Game()
 game.play()
 
 pygame.quit()
+
