@@ -13,7 +13,7 @@ class Game:
         self._clock = pygame.time.Clock()
         self._ball = Ball()
 
-    def _speed_down(self):
+    def _slow_down(self):
 
         self._inter_move_wait_time = self._inter_move_wait_time + 1
 
@@ -29,25 +29,27 @@ class Game:
                     return
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_DOWN:
-                        self._speed_down()
+                        self._slow_down()
                     elif event.key == pygame.K_UP:
                         self._speed_up()
+
             if self._ball.is_time_to_move(self._clock.get_time(), game._inter_move_wait_time):
                 self._ball.move(Game._window_width, Game._window_height)
 
                 Game._screen.fill(Game._black)
                 self._ball.draw(Game._screen)
                 pygame.display.flip()
+
             self._clock.tick()
 
 
 class Ball:
 
-    _ball_image_template = pygame.image.load("ball.gif")
+    _ball_image_template = pygame.image.load("ball.gif") # class variable
 
     def __init__(self):
 
-        self._ball_rect = Ball._ball_image_template.get_rect()
+        self._ball_rect = Ball._ball_image_template.get_rect() # instance variable
         self._direction = [1, 1]
         self._total_wait_since_last_move = 0
 
