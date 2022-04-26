@@ -19,3 +19,4 @@ for x in palindromics[::-1]:
             break
     if çapar:
         break
+kl=0
